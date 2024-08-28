@@ -66,3 +66,23 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - json (enabled by default - don't turn it off)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+admin login
+username : admin
+password : admin
+
+approval login
+username : approval
+password : aa
+
+cara menggunakan applikasi
+
+isi dahulu untuk draiver, data kendaraan dan juga data region sebelum melakukan reservasi
+
+lakukan reservasi berdasarkan data yang telah diisi, nanti akan muncul status 'pending'
+
+Data dikirim ke user home untuk melakukan approve terhadap status kendaraan
+
+untuk laporan bisa dicetak menggunakan approval kemudian reservasi dan dicetak ke excel
+
+
