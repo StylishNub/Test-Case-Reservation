@@ -21,8 +21,8 @@
 <body class=" font-normal leading-default bg-[#F6F6F6]">
     <!-- navbar -->
     <nav class="bg-[#2D3250] flex w-full h-16 px-10 justify-between items-center">
-        <h1 class=" text-7 font-bold mb-2 text-yellow-500">LOGIK</h1>
-        <div class="flex gap-16 font-abrill text-6">
+        <h1 class=" text-7 font-bold mb-2 text-white">LOGIK</h1>
+        <div class="flex gap-16 font-bold text-6">
             <a href="/home" class="border-b-2 hover:border-white text-yellow-500 <?= $menu == 'home' ? 'border-white' : 'border-transparent' ?> ">Home</a>
             <a href="/detail_reservasi" class="hover:border-b-2 hover:border-white text-yellow-500 <?= $menu == 'reservasi' ? 'border-white' : 'border-transparent' ?>">Reservasi</a>
         </div>

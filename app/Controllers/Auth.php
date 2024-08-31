@@ -65,12 +65,12 @@ class Auth extends BaseController
             } else {
                 //jika email dan password tidak valid
                 session()->setFlashdata('pesanlogin', 'Wrong Name or Password!');
-                return redirect()->to(base_url('/login'));
+                return redirect()->to(base_url('/'));
             }
         } else {
             // jika tidak valid
             session()->setFlashdata('errorslogin', \Config\Services::validation()->getErrors());
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/'));
         }
     }
     public function logout()

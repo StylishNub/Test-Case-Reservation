@@ -33,7 +33,6 @@ $routes->get('/reservation_list/tambah_reservasi', 'Admin::tambah_reservasi');
 $routes->post('/tambah_reservasi/save_reservation', 'Admin::save_reservation');
 $routes->get('/reservation_list/edit_reservation/(:segment)', 'Admin::edit_reservation/$1');
 $routes->post('/edit_reservation/save_edit_reservation/(:segment)', 'Admin::save_edit_reservation/$1');
-$routes->get('/reservation_list/delete_reservation/(:segment)','Admin::delete_reservation/$1');
 
 $routes->get('/driver_list', 'Admin::driver_list');
 $routes->get('/driver_list/driver_add', 'Admin::driver_add');
@@ -48,6 +47,5 @@ $routes->get('/home', 'Approval::index');
 $routes->get('/index/update_status/(:num)/(:alpha)', 'Approval::update_status/$1/$2');
 $routes->get('/detail_reservasi', 'Approval::detail_reservasi');
 $routes->get('/detail_reservasi/export_excel', 'Approval::export_excel');
-$routes->get('/article', 'Approval::article');
-$routes->get('/detail_artikel/(:segment)','Approval::detail_artikel/$1');
+$routes->get('/detail_reservasi/delete_reservasi/(:segment)','Approval::delete_reservasi/$1');
 

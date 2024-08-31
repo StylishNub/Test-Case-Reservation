@@ -676,13 +676,6 @@ public function save_edit_driver()
         $regionModel->delete($id);
         return redirect()->to('/list');
     }
-        public function delete_reservation($id = false)
-    {
-        $reservationModel = new ReservationModel();
-        $reservationModel->delete($id);
-        return redirect()->to('/reservation_list');
-    }
-
 
 
 }

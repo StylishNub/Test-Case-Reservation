@@ -14,16 +14,16 @@
 <body class=" antialiased font-normal leading-default bg-[#F6F6F6] ">
     <!-- navbar -->
     <nav class="w-full absolute h-16 px-10">
-        <h1 class="font-bold text-9 mb-2 mt-2 text-yellow-600">LOGIK</h1>
+        <h1 class="font-bold text-9 mb-2 mt-2 text-white">LOGIK</h1>
     </nav>
     <div class="flex">
         <div class="bg-[#2D3250] w-full py-42 flex justify-end items-center">
-            <div class="w-11/12 h-full bg-white rounded-l-[50px] px-16 py-25">
+            <div class="w-11/12 h-full bg-yellow-500 rounded-l-[50px] px-16 py-25">
                 <?php
                 echo form_open('auth/cek_login');
                 ?>
                 <div class="px-9">
-                    <h1 class="font-bold text-[32px]">Sign In !</h1>
+                    <h1 class="font-bold text-[32px] text-white">Sign In !</h1>
                     <?php
                     $errors = session()->getFlashdata('errorslogin');
                     if ($errors !== null && is_array($errors)) :
@@ -70,23 +70,23 @@
                     <?php endif ?>
                     <div class="modal-body">
                         <div class="mt-7">
-                            <label for="name" class=" text-[24px]">Name</label>
+                            <label for="name" class=" text-[24px] text-white font-bold">Name</label>
                             <input type="text" name="name" class="w-full  placeholder:text-xs  shadow-lg rounded-full p-4 ">
                         </div>
                         <div class="mt-7">
-                            <label for="password" class="text-[24px] -mt-40">password</label>
+                            <label for="password" class="text-[24px] -mt-40 text-white font-bold">password</label>
                             <input type="password" name="password" class="w-full  placeholder:text-slate-300 shadow-lg rounded-full p-4 ">
                         </div>
-                        <div class="flex flex-col justify-center items-center gap-2 mt-7">
-                            <button class="rounded-full px-7 font-bold text-6 shadow-lg pb-2 bg-white text-black">Sign In</button>
+                        <div class="flex flex-col justify-center items-center gap-2 mt-7 ">
+                            <button class="rounded-full px-7 font-bold text-6 shadow-lg pb-2 bg-[#2D3250] text-white">Sign In</button>
                         </div>
                     </div>
                 </div>
                 <?php echo form_close() ?>
             </div>
         </div>
-        <div class="bg-white w-full py-42 flex items-center">
-            <img src="/img/home.jfif" class="w-11/12 h-full" alt="">
+        <div class="bg-yellow-500 w-full py-42 flex items-center">
+            <img src="/img/tbg3.JPEG" class="w-11/12 h-full" alt="">
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

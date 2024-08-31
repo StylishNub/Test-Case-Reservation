@@ -35,7 +35,7 @@
     <div class="bg-white shadow-md rounded overflow-x-auto">
         <table class="min-w-full table-auto">
             <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr class="bg-blue-200 text-gray-600 uppercase text-sm leading-normal">
                     <th class="py-3 px-6 text-left">No.</th>
                     <th class="py-3 px-6 text-left">Type</th>
                     <th class="py-3 px-6 text-left">Driver</th>

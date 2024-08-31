@@ -33,8 +33,8 @@
                         <td class="py-3 px-6 text-center"><?= $reservation['end_date']; ?></td>
                         <td class="py-3 px-6 text-center"><?= $reservation['status']; ?></td>
                         <td class="py-3 px-6 text-center">
-                            <a href="<?= base_url('reservation_list/edit_reservation/' . $reservation['id']); ?>" class="text-blue-500 hover:underline">Edit</a> | 
-                            <a href="<?= base_url('reservation_list/delete_reservation/' . $reservation['id']); ?>" class="text-red-500 hover:underline"  onclick="return confirm('Are you sure?');">Delete</a>
+                            <a href="<?= base_url('reservation_list/edit_reservation/' . $reservation['id']); ?>" class="text-blue-500 hover:underline">Edit</a> 
+
                         </td>
                     </tr>
                 <?php endforeach; ?>

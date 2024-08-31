@@ -39,8 +39,7 @@
                         <td class="py-3 px-6 text-center"><?= $reservation['end_date']; ?></td>
                         <td class="py-3 px-6 text-center"><?= $reservation['status']; ?></td>
                         <td class="py-3 px-6 text-center">
-                            <a href="<?= base_url('reservations/edit/' . $reservation['id']); ?>" class="text-blue-500 hover:underline">Edit</a> | 
-                            <a href="<?= base_url('reservations/delete/' . $reservation['id']); ?>" class="text-red-500 hover:underline">Delete</a>
+                            <a href="<?= base_url('detail_reservasi/delete_reservasi/' . $reservation['id']); ?>" class="text-red-500 hover:underline"  onclick="return confirm('Are you sure?');">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

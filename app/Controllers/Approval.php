@@ -64,6 +64,31 @@ class Approval extends BaseController
         // Mengirim data ke view 'approval/detailReservation'
         return view('approval/detailReservation', $data);
     }
+public function edit_reservation($id)
+{
+    $reservationModel = new \App\Models\ReservationModel();
+    $vehicleModel = new \App\Models\VehicleModel();
+    $userModel = new \App\Models\UserModel();
+    $driverModel = new \App\Models\DriverModel();
+
+    $reservation = $reservationModel->find($id);
+
+    $data = [
+        'title' => 'Edit Reservasi',
+        'menu' => 'Reservasi',
+        'validation' => \Config\Services::validation(),
+        'reservation' => $reservation,
+        'vehicles' => $vehicleModel->findAll(),
+        'users' => $userModel->findAll(),
+        'drivers' => $driverModel->findAll(),
+    ];
+
+    if (empty($data['reservation'])) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the reservation with id ' . $id);
+    }
+
+    return view('approval/editReservasi', $data);
+}
 
 
     public function export_excel()
@@ -107,5 +132,12 @@ class Approval extends BaseController
         header('Content-Disposition: attachment; filename="' . urlencode($filename) . '"');
         $writer->save('php://output');
         exit;
+    }
+    
+         public function delete_reservasi($id = false)
+    {
+        $reservationModel = new ReservationModel();
+        $reservationModel->delete($id);
+        return redirect()->to('/detail_reservasi');
     }
 }
