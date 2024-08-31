@@ -27,8 +27,8 @@
                         <td class="py-3 px-6 text-left"><?= $driver['license_number']; ?></td>
                         <td class="py-3 px-6 text-center"><?= $driver['status']; ?></td>
                         <td class="py-3 px-6 text-center">
-                            <a href="<?= base_url('drivers/edit/' . $driver['id']); ?>" class="text-blue-500 hover:underline">Edit</a> | 
-                            <a href="<?= base_url('drivers/delete/' . $driver['id']); ?>" class="text-red-500 hover:underline" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a href="<?= base_url('driver_list/driver_edit/' . $driver['id']); ?>" class="text-blue-500 hover:underline">Edit</a> | 
+                            <a href="<?= base_url('driver_list/delete_driver/' . $driver['id']); ?>" class="text-red-500 hover:underline" onclick="return confirm('Are you sure?')">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

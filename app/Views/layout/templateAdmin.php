@@ -48,6 +48,14 @@
                         <a href="<?= base_url('region_vehicles') ?>" class="block px-4 py-2 text-gray-900 hover:bg-gray-100">Kendaraan per Region</a>
                     </div>
                 </li>
+                 <li class="mt-0.5 w-full">
+                    <a class="sidebar-item py-2.7 text-sm my-0 mx-2 flex items-center whitespace-nowrap transition-colors duration-200 <?= $menu == 'driver' ? 'bg-white text-black font-bold' : 'hover:bg-white hover:text-black' ?>" href="<?= base_url('driver_list') ?>">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 text-sm leading-normal text-orange-500 ni ni-badge"></i>
+                        </div>
+                        <span class="ml-1 text-5">Driver</span>
+                    </a>
+                </li>
                 <li class="mt-0.5 w-full">
                     <a class="sidebar-item py-2.7 text-sm my-0 mx-2 flex items-center whitespace-nowrap transition-colors duration-200 <?= $menu == 'manajemen' ? 'bg-white text-black font-bold' : 'hover:bg-white hover:text-black' ?>" href="<?= base_url('manajemen_vehicle') ?>">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center bg-center stroke-0 text-center xl:p-2.5">
@@ -64,14 +72,7 @@
                         <span class="ml-1 text-5">Reservasi Kendaraan</span>
                     </a>
                 </li>
-                <li class="mt-0.5 w-full">
-                    <a class="sidebar-item py-2.7 text-sm my-0 mx-2 flex items-center whitespace-nowrap transition-colors duration-200 <?= $menu == 'driver' ? 'bg-white text-black font-bold' : 'hover:bg-white hover:text-black' ?>" href="<?= base_url('driver_list') ?>">
-                        <div class="mr-2 flex h-8 w-8 items-center justify-center bg-center stroke-0 text-center xl:p-2.5">
-                            <i class="relative top-0 text-sm leading-normal text-orange-500 ni ni-badge"></i>
-                        </div>
-                        <span class="ml-1 text-5">Driver</span>
-                    </a>
-                </li>
+
                 <li class="absolute bottom-2 mt-0.5 w-full font-gowun-batang">
                     <a class="sidebar-item py-2.7 text-sm my-0 mx-2 flex items-center whitespace-nowrap transition-colors duration-200 hover:bg-white hover:text-black" href="<?= base_url('logout') ?>">
                         <div class="flex h-8 w-8 items-center justify-center bg-center stroke-0 text-center xl:p-2.5">

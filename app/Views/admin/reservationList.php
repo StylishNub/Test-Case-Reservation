@@ -11,7 +11,7 @@
     <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
         <table class="min-w-max w-full table-auto">
             <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr class="bg-blue-200 text-gray-600 uppercase text-sm leading-normal">
                     <th class="py-3 px-6 text-left">No.</th>
                     <th class="py-3 px-6 text-left">Type</th>
                     <th class="py-3 px-6 text-left">Driver</th>
@@ -33,8 +33,8 @@
                         <td class="py-3 px-6 text-center"><?= $reservation['end_date']; ?></td>
                         <td class="py-3 px-6 text-center"><?= $reservation['status']; ?></td>
                         <td class="py-3 px-6 text-center">
-                            <a href="<?= base_url('reservations/edit/' . $reservation['id']); ?>" class="text-blue-500 hover:underline">Edit</a> | 
-                            <a href="<?= base_url('reservations/delete/' . $reservation['id']); ?>" class="text-red-500 hover:underline">Delete</a>
+                            <a href="<?= base_url('reservation_list/edit_reservation/' . $reservation['id']); ?>" class="text-blue-500 hover:underline">Edit</a> | 
+                            <a href="<?= base_url('reservation_list/delete_reservation/' . $reservation['id']); ?>" class="text-red-500 hover:underline"  onclick="return confirm('Are you sure?');">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

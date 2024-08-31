@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class User extends BaseController
+class Approval extends BaseController
 {
     protected $AuthModel;
     protected $ReservationModel;
@@ -21,7 +21,7 @@ class User extends BaseController
 
     public function index()
     {
-        // Mengambil semua data reservasi dengan join ke vehicles dan users
+        // Mengambil semua data reservasi dengan join ke vehicles dan approval
         $reservations = $this->ReservationModel->getReservationsWithVehicleTypeAndAdmin();
 
         // Menyiapkan data untuk view
@@ -31,8 +31,8 @@ class User extends BaseController
             'reservations' => $reservations // Gunakan 'reservations' sebagai kunci
         ];
 
-        // Mengirim data ke view 'user/home'
-        return view('user/home', $data);
+        // Mengirim data ke view 'approval/home'
+        return view('approval/home', $data);
     }
 
     public function update_status($reservationId, $status)
@@ -51,7 +51,7 @@ class User extends BaseController
 
     public function detail_reservasi()
     {
-        // Mengambil semua data reservasi dengan join ke vehicles dan users
+        // Mengambil semua data reservasi dengan join ke vehicles dan approval
         $reservations = $this->ReservationModel->getReservationsWithVehicleType();
 
         // Menyiapkan data untuk view
@@ -61,8 +61,8 @@ class User extends BaseController
             'reservations' => $reservations // Gunakan 'reservations' sebagai kunci
         ];
 
-        // Mengirim data ke view 'user/detailReservation'
-        return view('user/detailReservation', $data);
+        // Mengirim data ke view 'approval/detailReservation'
+        return view('approval/detailReservation', $data);
     }
 
 
