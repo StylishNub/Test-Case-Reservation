@@ -67,6 +67,15 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
+framework menggunakan Codeigniter4
+
+untuk run type "php spark serve"
+sebelum run, pastikan database yang ada di folder ini dimasukkan dahulu ke dalam sql dan
+pastikan dnama database "logik"
+
+untuk mengakses tailwind bisa menggunakan :
+"npx tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch"
+
 admin login
 username : admin
 password : admin
@@ -77,14 +86,16 @@ password : aa
 
 cara menggunakan applikasi
 
-isi dahulu untuk draiver, data kendaraan dan juga data region sebelum melakukan reservasi
+Admin :
+Dashboard berisi tentang statistik kendaraan yang di serve dan ready.
+
+isi dahulu untuk driver, data kendaraan dan juga data region sebelum melakukan reservasi
 
 lakukan reservasi berdasarkan data yang telah diisi, nanti akan muncul status 'pending'
 
-Data dikirim ke user home untuk melakukan approve terhadap status kendaraan
+Data dikirim ke user home approval untuk melakukan approve terhadap status kendaraan
 
-untuk laporan bisa dicetak menggunakan approval kemudian reservasi dan dicetak ke excel
+Approval :
+Proses Approve bisa di akses menggunakan account approval, kemudian status akan otomatis berubah ketika sudah di acc.
+untuk laporan bisa dicetak menggunakan approval account kemudian reservasi dan dicetak ke excel
 
-untuk mengakses tailwind bisa menggunakan
-
-npx tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch
