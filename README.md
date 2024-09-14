@@ -69,12 +69,24 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 
 framework menggunakan Codeigniter4
 
+tata cara menggunakan applikasi jika download dari github
+
+pertama update composer dahulu dengan type "composer update"
+
+kemudian setelah berhasil update composer ubah file env menjadi .env
+
 untuk run type "php spark serve"
 sebelum run, pastikan database yang ada di folder ini dimasukkan dahulu ke dalam sql dan
 pastikan dnama database "logik"
 
 untuk mengakses tailwind bisa menggunakan :
 "npx tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch"
+
+tata cara menggunakan apliakasi jika mengambil dari zip drive
+
+bisa langsung run dengan menggunakan "php spark serve"
+sebelum run, pastikan database yang ada di folder ini dimasukkan dahulu ke dalam sql dan
+pastikan dnama database "logik"
 
 admin login
 username : admin
@@ -98,4 +110,3 @@ Data dikirim ke user home approval untuk melakukan approve terhadap status kenda
 Approval :
 Proses Approve bisa di akses menggunakan account approval, kemudian status akan otomatis berubah ketika sudah di acc.
 untuk laporan bisa dicetak menggunakan approval account kemudian reservasi dan dicetak ke excel
-
