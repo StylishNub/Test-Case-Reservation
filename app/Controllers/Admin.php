@@ -26,9 +26,12 @@ class Admin extends BaseController
         $this->approvalModel = new ApprovalModel();
         $this->driverModel = new DriverModel();
     }
-    public function index(): string
-    {
-   // Mengambil data statistik
+ public function index(): string
+{
+    // Update reservation status
+    $this->update_reservation_status();
+
+    // Mengambil data statistik
     $totalVehicles = $this->vehicleModel->countAll();
     $totalDrivers = $this->driverModel->countAll();
     
@@ -49,7 +52,6 @@ class Admin extends BaseController
     $rejectedReservations = $this->reservationsModel->where('status', 'Rejected')->countAllResults();
 
     // Menyiapkan data untuk view
-
     $reservations = $this->reservationsModel->getReservationsWithVehicleType(); // Update method sesuai kebutuhan
     $data = [
         'title' => 'Dashboard',
@@ -61,10 +63,11 @@ class Admin extends BaseController
         'acceptedReservations' => $acceptedReservations,
         'rejectedReservations' => $rejectedReservations,
         'reservations' => $reservations
+    ];
+    
+    return view('admin/dashboard', $data);
+}
 
-        ];
-        return view('admin/dashboard', $data);
-    }
 
         //Vehicle Models
     public function manajemen_vehicle()
@@ -261,31 +264,83 @@ public function tambah_reservasi()
     return view('admin/addReservation', $data);
 }
     
-    public function save_reservation()
-    {
-    $reservationId = $this->reservationsModel->insert([
-    'vehicle_id' => $this->request->getVar('vehicle_id'),
-    'admin_id' => $this->request->getVar('admin_id'),
-    'driver_name' => $this->driverModel->find($this->request->getVar('driver_id'))['name'],
-    'approval_id' => 6, // Diset null karena approval dilakukan kemudian
-    'status' => 'Pending',
-    'reservation_date' => $this->request->getVar('reservation_date'),
-    'start_date' => $this->request->getVar('start_date'),
-    'end_date' => $this->request->getVar('end_date'),
-    'purpose' => $this->request->getVar('purpose')
-        ]);
+public function save_reservation()
+{
+    // Ambil variabel yang diperlukan dari request
+    $vehicleId = $this->request->getVar('vehicle_id');
+    $driverId = $this->request->getVar('driver_id');
+    $startDate = $this->request->getVar('start_date');
+    $endDate = $this->request->getVar('end_date');
 
-        // Menambahkan entri ke tabel approval
-        $this->approvalModel->insert([
-            'reservation_id' => $reservationId,
-            'approver_id' => $this->request->getVar('approval_id'),
-            'status' => 'Pending',
-            'comments' => '',
-            'approved_at' => null
-        ]);
+    // Ambil nama driver berdasarkan ID driver
+    $driverName = $this->driverModel->find($driverId)['name'];
 
-        return redirect()->to('/reservation_list');
+    // Cek apakah kendaraan sudah direservasi pada rentang tanggal yang sama
+    $isVehicleReserved = $this->reservationsModel
+        ->where('vehicle_id', $vehicleId)
+        ->where('status', 'Reserved')
+        ->groupStart()
+            ->where('start_date <=', $endDate)
+            ->where('end_date >=', $startDate)
+        ->groupEnd()
+        ->countAllResults();
+
+    // Cek apakah driver sudah direservasi pada rentang tanggal yang sama
+    $isDriverReserved = $this->reservationsModel
+        ->where('driver_name', $driverName) // Menggunakan driver_name
+        ->where('status', 'Reserved')
+        ->groupStart()
+            ->where('start_date <=', $endDate)
+            ->where('end_date >=', $startDate)
+        ->groupEnd()
+        ->countAllResults();
+
+    // Jika kendaraan atau driver sedang direservasi, tampilkan pesan error
+    if ($isVehicleReserved > 0) {
+        return redirect()->back()->with('error', 'Kendaraan yang dipilih sedang dalam status reserved. Silakan pilih kendaraan lain atau ubah waktu reservasi.');
     }
+
+    if ($isDriverReserved > 0) {
+        return redirect()->back()->with('error', 'Driver yang dipilih sedang dalam status reserved. Silakan pilih driver lain atau ubah waktu reservasi.');
+    }
+
+    // Jika kendaraan dan driver tersedia, simpan reservasi
+    $this->reservationsModel->insert([
+        'vehicle_id' => $vehicleId,
+        'admin_id' => $this->request->getVar('admin_id'),
+        'driver_name' => $driverName, // Simpan driver_name, bukan driver_id
+        'status' => 'Pending',
+        'reservation_date' => $this->request->getVar('reservation_date'),
+        'start_date' => $startDate,
+        'end_date' => $endDate,
+        'purpose' => $this->request->getVar('purpose')
+    ]);
+
+    // Perbarui status driver menjadi "Tidak Tersedia"
+    $this->driverModel->update($driverId, ['status' => 'Tidak Tersedia']);
+
+    return redirect()->to('/reservation_list')->with('success', 'Reservasi berhasil ditambahkan.');
+}
+
+public function update_reservation_status()
+{
+    // Ambil semua reservasi yang telah melewati tanggal selesai
+    $currentDate = date('Y-m-d H:i:s');
+    $reservations = $this->reservationsModel->where('end_date <', $currentDate)
+                                            ->where('status', 'Accepted') // Hanya reservasi yang diterima
+                                            ->findAll();
+
+    foreach ($reservations as $reservation) {
+        // Perbarui status reservasi menjadi "Finished"
+        $this->reservationsModel->update($reservation['id'], ['status' => 'Finished']);
+
+        // Ambil nama driver dari reservasi
+        $driverName = $reservation['driver_name'];
+
+        // Perbarui status driver menjadi "Tersedia" berdasarkan driver_name
+        $this->driverModel->where('name', $driverName)->set(['status' => 'Tersedia'])->update();
+    }
+}
 
 public function edit_reservation($id)
 {
@@ -549,22 +604,46 @@ public function region_vehicles()
     return view('admin/regionVehicle', $data);
 }
 
+public function driver_list()
+{
+    // Ambil semua driver dari database
+    $drivers = $this->driverModel->findAll();
+    
+    // Ambil semua reservasi yang sedang aktif (status Accepted) untuk memeriksa status driver
+    $reservations = $this->reservationsModel
+        ->select('driver_name, status')
+        ->whereIn('status', ['Accepted', 'Reserved']) // Cek driver yang sedang dalam status 'Accepted' atau 'Reserved'
+        ->findAll();
 
-
-
-
-    public function driver_list()
-    {
-        $drivers = $this->driverModel->findAll();
-        
-        $data = [
-            'title' => 'List Driver',
-            'menu' => 'driver list',
-            'drivers' => $drivers
-        ];
-        
-        return view('admin/driverLists', $data);
+    // Buat array untuk menyimpan status driver berdasarkan reservasi yang sedang aktif
+    $driverStatuses = [];
+    foreach ($reservations as $reservation) {
+        $driverStatuses[$reservation['driver_name']] = $reservation['status'];
     }
+
+    // Tentukan status driver berdasarkan apakah mereka sedang direservasi atau tidak
+    foreach ($drivers as &$driver) {
+        $driverName = $driver['name'];
+
+        if (isset($driverStatuses[$driverName])) {
+            // Jika driver sedang dalam status 'Accepted' atau 'Reserved', tandai sebagai 'Tidak Tersedia'
+            $driver['status_label'] = $driverStatuses[$driverName] == 'Accepted' ? 'Tidak Tersedia' : 'Tersedia';
+        } else {
+            // Jika tidak ada reservasi yang melibatkan driver ini, tandai sebagai 'Tersedia'
+            $driver['status_label'] = 'Tersedia';
+        }
+    }
+
+    // Kirim data ke view
+    $data = [
+        'title' => 'List Driver',
+        'menu' => 'driver list',
+        'drivers' => $drivers
+    ];
+
+    return view('admin/driverLists', $data);
+}
+
 
     public function driver_add()
     {

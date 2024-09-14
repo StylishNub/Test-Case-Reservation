@@ -14,14 +14,14 @@ class ReservationModel extends Model
     // Method untuk mendapatkan reservasi dengan join tabel vehicles
     public function getReservationsWithVehicleType()
     {
-        return $this->select('reservations.*, vehicles.type')
+        return $this->select('reservations.*, vehicles.type, vehicles.registration_number')
                     ->join('vehicles', 'reservations.vehicle_id = vehicles.id')
                     ->findAll();
     }
 
         public function getReservationsWithVehicleTypeAndAdmin()
     {
-        return $this->select('reservations.*, vehicles.type as vehicle_type, user.name as admin_name')
+        return $this->select('reservations.*, vehicles.type as vehicle_type,vehicles.registration_number , user.name as admin_name')
                     ->join('vehicles', 'vehicles.id = reservations.vehicle_id')
                     ->join('user', 'user.id = reservations.admin_id')
                     ->findAll();

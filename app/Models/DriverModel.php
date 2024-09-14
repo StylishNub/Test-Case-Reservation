@@ -9,4 +9,9 @@ class DriverModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = ['name', 'license_number', 'status'];
     protected $useTimestamps = true;
+
+    public function getDriverByName($name)
+    {
+        return $this->where('name', $name)->first();
+    }
 }
